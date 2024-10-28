@@ -1075,7 +1075,7 @@
         },
         "delayCount": {
             "type": "int",
-            "defaultValue": 55,
+            "defaultValue": 45,
             "minValue": 1,
             "maxValue": 60,
             "metadata": {
