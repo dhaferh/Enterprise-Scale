@@ -55,7 +55,7 @@
       }
     },
     "variables": {
-        "vNetNameWithContext": "[concat(parameters('vNetName'), '-', split(subscription().displayName, '-')[sub(length(split(subscription().displayName, '-')),2)])]"
+        "vNetNameWithContext": "[take(concat(parameters('vNetName'), '-', split(subscription().displayName, '-')[sub(length(split(subscription().displayName, '-')),2)]),64)]"
     },
     "resources": [
       {
