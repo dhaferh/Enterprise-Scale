@@ -169,7 +169,7 @@
         "erGwName": "[concat(parameters('topLevelManagementGroupPrefix'), '-ergw-', parameters('location'))]",
         "rgName": "[concat(parameters('topLevelManagementGroupPrefix'), '-vnethub-', parameters('location'))]",
         "azFwPolicyName": "[concat(parameters('topLevelManagementGroupPrefix'), '-azfwpolicy-', parameters('location'))]",
-        "hubName": "[take(concat(parameters('topLevelManagementGroupPrefix'), '-hub-', split(subscription().displayName, '-')[sub(length(split(subscription().displayName, '-')),2)]),64)]",
+        "hubName": "[concat(parameters('topLevelManagementGroupPrefix'), '-hub')]",
         "azVpnGwIpName": "[concat(variables('vpngwname'), '-pip')]",
         "azVpnGwAAIpName": "[concat(variables('vpngwname'), '-pip-002')]",
         "azVpnGwSubnetId": "[concat('/subscriptions/', parameters('connectivitySubscriptionId'), '/resourceGroups/', variables('rgName'),'/providers/Microsoft.Network/virtualNetworks/', variables('hubname'), '/subnets/GatewaySubnet')]",
@@ -272,7 +272,7 @@
                                     "parameters": {},
                                     "resources": [
                                         {
-                                            "name": "[variables('hubName')]",
+                                            "name": "[take(concat(variables('hubName'), '-', split(subscription().displayName, '-')[sub(length(split(subscription().displayName, '-')),2)]),64)]",
                                             "type": "Microsoft.Network/virtualNetworks",
                                             "apiVersion": "2020-04-01",
                                             "location": "[parameters('location')]",
@@ -324,7 +324,7 @@
                                             "properties": {
                                                 "publicIPAllocationMethod": "Static"
                                             }
-                                        }, 
+                                        },
                                         {
                                             "condition": "[and(equals(parameters('enableVpnGw'), 'Yes'), equals(parameters('enableVpnActiveActive'),'No'), not(empty(parameters('subnetMaskForGw'))))]",
                                             "apiVersion": "2023-11-01",
@@ -538,7 +538,7 @@
                                                 "dnsSettings": "[if(equals(parameters('enableAzFwDnsProxy'), 'Yes'), variables('azFirewallDnsSettings'), json('null'))]",
                                                 "sku": {
                                                     "tier": "[parameters('firewallSku')]"
-                                                
+
                                                 }
                                             }
                                         },
